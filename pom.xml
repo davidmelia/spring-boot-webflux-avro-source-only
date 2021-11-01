@@ -21,6 +21,7 @@
 <!-- 		<spring-cloud.version>2020.0.3</spring-cloud.version> -->
 	</properties>
 	<dependencies>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
@@ -31,8 +32,8 @@
         </dependency>	
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-sleuth</artifactId>
-        </dependency>  
+            <artifactId>spring-cloud-starter-sleuth</artifactId>       
+        </dependency> 
         <dependency>
             <groupId>io.confluent</groupId>
             <artifactId>kafka-streams-avro-serde</artifactId>
@@ -73,9 +74,16 @@
             </plugin>
 		</plugins>
 	</build>
-
 	<dependencyManagement>
 		<dependencies>
+			<!-- 3.1.3 down grade works fines  -->
+<!-- 			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-stream-dependencies</artifactId>		
+				<version>3.1.3</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency> -->
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
