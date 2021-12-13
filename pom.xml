@@ -9,7 +9,7 @@
 		<version>2.5.4</version>
 	</parent>
 	<groupId>uk.co.ii</groupId>
-	<artifactId>spring-boot-webflux-avro--source-only</artifactId>
+	<artifactId>spring-boot-webflux-avro-source-only</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-boot-webflux-avro-source-only</name>
 	<description>Demo project for Spring Boot</description>
