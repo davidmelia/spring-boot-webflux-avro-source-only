@@ -8,6 +8,7 @@ import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 import uk.co.dave.consumer.fxrate.consumer.avro.AvroFxRateEvent;
@@ -23,12 +24,13 @@ public class DaveController {
   }
 
   @RequestMapping("/dave")
-  public Mono<Map<String, String>> dave() {
+  public Mono<Map<String, String>> dave(@RequestParam(name = "count",required = false,defaultValue = "0") final Integer count) {
     return Mono.just(MessageBuilder.withPayload(AvroFxRateEvent.newBuilder().setFrom("GBP").setTo("USD").setRate(BigDecimal.valueOf(0.109631).setScale(6, RoundingMode.HALF_UP)).build())
         .setHeaderIfAbsent(KafkaHeaders.MESSAGE_KEY, UUID.randomUUID().toString()).build()).flatMap(kafkaEvent -> {
+          System.out.println("sending");
           streamBridge.send("test-out-0", kafkaEvent);
           return Mono.just(Map.of("dave", "melia"));
-        });
+        }).repeat(count).collectList().map(m -> m.get(0));
 
   }
 
